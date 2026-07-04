@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Text → Braille Converter</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 120px;
+      margin-bottom: 10px;
+    }
+    #output {
+      white-space: pre-wrap;
+      font-size: 28px;
+      line-height: 1.6;
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+<body>
+
+<h2>テキスト → 点字変換（簡易版）</h2>
+
+<textarea id="input" placeholder="ここにテキスト入力"></textarea>
+<button onclick="convert()">変換</button>
+
+<h3>出力</h3>
+<div id="output"></div>
+
+<script>
+const brailleMap = {
+  a: "⠁", b: "⠃", c: "⠉", d: "⠙", e: "⠑",
+  f: "⠋", g: "⠛", h: "⠓", i: "⠊", j: "⠚",
+  k: "⠅", l: "⠇", m: "⠍", n: "⠝", o: "⠕",
+  p: "⠏", q: "⠟", r: "⠗", s: "⠎", t: "⠞",
+  u: "⠥", v: "⠧", w: "⠺", x: "⠭", y: "⠽", z: "⠵",
+
+  0: "⠴", 1: "⠂", 2: "⠆", 3: "⠒", 4: "⠲",
+  5: "⠢", 6: "⠖", 7: "⠶", 8: "⠦", 9: "⠔",
+
+  " ": " ",
+  ".": "⠲",
+  ",": "⠂",
+  "?": "⠦",
+  "!": "⠖",
+  "-": "⠤"
+};
+
+function convert() {
+  const text = document.getElementById("input").value.toLowerCase();
+  let result = "";
+
+  for (let char of text) {
+    result += brailleMap[char] || "⍰"; // 未対応文字は謎マーク
+  }
+
+  document.getElementById("output").textContent = result;
+}
+</script>
+
+</body>
+</html>
